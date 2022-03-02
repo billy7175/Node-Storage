@@ -10,6 +10,7 @@ const fs = require('fs');
 
 // const parseData = JSON.parse(bookJSON);
 // console.log(parseData.author);
+//
 
 const dataBuffer = fs.readFileSync('1-json.json');
 const dataJSON = dataBuffer.toString();
