@@ -1,5 +1,6 @@
 const yargs = require('yargs');
 const command = process.argv[2];
+const notes = require('./notes.js');
 
 
 if(command ==='add'){
@@ -29,6 +30,7 @@ yargs.command({
     }
   },
   handler:function(argv){
+    notes.addNote(argv.title, argv.body);
     console.log('Title : ', argv.title);
     console.log('Body : ', argv.body);
   }
