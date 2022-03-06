@@ -2,15 +2,6 @@ const yargs = require('yargs');
 const command = process.argv[2];
 const notes = require('./notes.js');
 
-
-if(command ==='add'){
-  console.log('Adding note.');
-} else if(command ==='remove'){
-  console.log('Removing note!');
-} else {
-  console.log('Type correct command.');
-}
-
 //Customize yargs version
 yargs.version('1.1.0');
 
@@ -48,7 +39,6 @@ yargs.command({
   },
   handler:function(argv){
     notes.removeNote(argv.title)
-    console.log('Removing a new note!');
   }
 });
 
