@@ -52,7 +52,7 @@ const listNotes = () => {
   console.log('You have excuted listNotes function!');
 }
 
-const readNotes = (title) => {
+const readNote = (title) => {
   const notes = loadNotes();
   const note = notes.find(note => note.title === title);
   if(note){
@@ -83,5 +83,5 @@ module.exports = {
   addNote: addNote,
   removeNote:removeNote,
   listNotes: listNotes,
-  readNotes: readNotes
+  readNote: readNote
 };

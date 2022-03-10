@@ -1,5 +1,5 @@
 const yargs = require('yargs');
-const command = process.argv[2];
+// const command = process.argv[2];
 const notes = require('./notes.js');
 
 //Customize yargs version
@@ -63,8 +63,8 @@ yargs.command({
     }
   },
   handler:function(argv){
-    notes.readNotes(argv.title)
+    notes.readNote(argv.title)
   }
 })
 
-console.log(yargs.argv);
+yargs.parse();
