@@ -3,6 +3,27 @@ const request = require('request')
 const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 
+const address = process.argv[2];
+
+if (!address) {
+    console.log('Please provide an address')
+} else {
+    geocode(address, (error, data) => {
+        if (error) {
+            return console.log(error)
+        }
+
+        forecast(data.latitude, data.longitude, (error, forecastData) => {
+            if (error) {
+                return console.log(error)
+            }
+
+            console.log("Data :", data.location)
+            console.log("Forecase :", forecastData)
+        })
+    })
+}
+
 // const url = 'http://api.weatherstack.com/current?access_key=c856b41f18ba9d50e97c6eabe865d192&query=42.3605,-71.0596'
 
 // request({ url: url }, (error, response) => {
@@ -28,12 +49,12 @@ const forecast = require('./utils/forecast')
 //     }
 // })
 
-geocode('Boston', (error, data) => {
-    console.log('Error', error)
-    console.log('Data', data)
-})
+// geocode('Boston', (error, data) => {
+//     console.log('Error', error)
+//     console.log('Data', data)
+// })
 
-forecast(44.1545, -75.7088, (error, data) => {
-    console.log('Error', error)
-    console.log('Data', data)
-})
+// forecast(44.1545, -75.7088, (error, data) => {
+//     console.log('Error', error)
+//     console.log('Data', data)
+// })
