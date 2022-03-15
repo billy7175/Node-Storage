@@ -3,19 +3,25 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Hello Express!');
+  res.send('<h1>Server is running.</h1>');
 })
 
 app.get('/help', (req, res) => {
-  res.send('Hello page');
+  res.send({
+    name:'Billy',
+    job:'developer'
+  });
 })
 
 app.get('/about', (req, res) => {
-  res.send('Hello about');
+  res.send('<h1>about</h1>');
 })
 
 app.get('/weather', (req, res) => {
-  res.send('Hello weather');
+  res.send({
+    forecase: "It is snowing.",
+    location: 'Philadelphia'
+  });
 })
 
 
