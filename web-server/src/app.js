@@ -46,12 +46,40 @@ app.get("/help", (req, res) => {
   });
 });
 
+app.get("/products", (req, res) => {
+  console.log('@query', req.query.search)
+  if(!req.query.search){
+    return res.send({
+      error:'You must provide a search term.'
+    })
+  }
+  res.send({
+    products: []
+  });
+});
+
 app.get("/weather", (req, res) => {
+  if(!req.query.address){
+    return res.send({
+      error:'You must provide an address.'
+    })
+  }
+
   res.send({
     forecase: "It is snowing.",
     location: "Philadelphia",
+    address: req.query.address
   });
 });
+
+app.get("/help/*", (req, res) => {
+  res.send("Help Ariticle not found");
+});
+
+app.get("*", (req, res) => {
+  res.send('My Page 404');
+});
+
 
 const PORT = 3000;
 app.listen(PORT, () => {
