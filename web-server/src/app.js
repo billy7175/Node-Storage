@@ -10,11 +10,13 @@ console.log(path.join(__dirname, '../public'));
 const app = express();
 const publicDirectoryPath = path.join(__dirname, '../public')
 
+app.set('view engine', 'hbs');
 app.use(express.static(publicDirectoryPath));
 
-// app.get('/', (req, res) => {
-//   res.send('<h1>Server is running.</h1>');
-// })
+app.get('/', (req, res) => {
+  // res.send('<h1>Server is running.</h1>');
+  res.render('index')
+})
 
 // app.get('/help', (req, res) => {
 //   res.send({
