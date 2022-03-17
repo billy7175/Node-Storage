@@ -1,16 +1,13 @@
 const path = require('path')
 const express = require('express');
 
-console.log("__dirname");
-console.log(__dirname)
-console.log("__filename");
-console.log(__filename)
-console.log(path.join(__dirname, '../public'));
 
 const app = express();
 const publicDirectoryPath = path.join(__dirname, '../public')
+const viewPath = path.join(__dirname, '../templates')
 
 app.set('view engine', 'hbs');
+app.set('views', viewPath)
 app.use(express.static(publicDirectoryPath));
 
 app.get('/', (req, res) => {
