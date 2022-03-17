@@ -1,6 +1,10 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
+// const geocode = require('./utils/geocode')
+// const forecase = require('./utils/forecase')
+const geocode = require("./utils/geocode");
+const forecast = require("./utils/forecast");
 
 const app = express();
 
@@ -47,39 +51,77 @@ app.get("/help", (req, res) => {
 });
 
 app.get("/products", (req, res) => {
-  console.log('@query', req.query.search)
-  if(!req.query.search){
+  console.log("@query", req.query.search);
+  if (!req.query.search) {
     return res.send({
-      error:'You must provide a search term.'
-    })
+      error: "You must provide a search term.",
+    });
   }
   res.send({
-    products: []
+    products: [],
   });
 });
 
 app.get("/weather", (req, res) => {
-  if(!req.query.address){
+  if (!req.query.address) {
     return res.send({
-      error:'You must provide an address.'
-    })
+      error: "You must provide an address!",
+    });
   }
 
-  res.send({
-    forecase: "It is snowing.",
-    location: "Philadelphia",
-    address: req.query.address
-  });
+  geocode(req.query.address, (error, { latitude, longitude, location }) => {
+    if (error) {
+      return res.send({ error });
+    }
+    forecast(latitude, longitude, (error, forecaseData) => {
+      if (error) {
+        return res.send({ error });
+      }
+
+      res.send({
+        forecast: forecaseData,
+        location: location,
+        address: req.query.address,
+      });
+    });
+
+  }); // geocode
+
 });
+
+// app.get('/weather', (req, res) => {
+//   if (!req.query.address) {
+//       return res.send({
+//           error: 'You must provide an address!'
+//       })
+//   }
+
+//   geocode(req.query.address, (error, { latitude, longitude, location }) => {
+//       if (error) {
+//           return res.send({ error })
+//       }
+
+//       forecast(latitude, longitude, (error, forecastData) => {
+//           if (error) {
+//               return res.send({ error })
+//           }
+
+//           res.send({
+//               forecast: forecastData,
+//               location,
+//               address: req.query.address
+//           })
+//       })
+//   })
+// })
 
 app.get("/help/*", (req, res) => {
   res.send("Help Ariticle not found");
 });
 
 app.get("*", (req, res) => {
-  res.send('My Page 404');
+  res.send("My Page 404");
 });
-
 
 const PORT = 3000;
 app.listen(PORT, () => {
