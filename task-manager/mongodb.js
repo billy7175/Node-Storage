@@ -15,6 +15,14 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     }
 
     const db = client.db(databaseName)
+
+    db.collection('users').findOne({ _id: new ObjectID("6235c65e1ba9ed5e183743fb") }, (error, task) => {
+        console.log(task)
+    })
+
+    db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
+        console.log(tasks)
+    })
     
     // db.collection('users').insertOne({
     //     name: 'Vikram',
