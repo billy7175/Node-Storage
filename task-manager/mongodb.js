@@ -14,6 +14,23 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
         return console.log('Unable to connect to database!')
     }
     const db = client.db(databaseName)
+
+    db.collection('tasks').deleteOne({
+        description: "Clean the house"
+    }).then((result) => {
+        console.log(result)
+    }).catch((error) => {
+        console.log(error)
+    })
+
+    // db.collection('users').deleteMany({
+    //     age: 27
+    // }).then((result) => {
+    //     console.log(result)
+    // }).catch((error) => {
+    //     console.log(error)
+    // })
+
     // db.collection('users').updateOne({
     //     _id: new ObjectID("6235c65e1ba9ed5e183743fb")
     // }, {
@@ -26,17 +43,17 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     //     console.log(error)
     // })
 
-    db.collection('tasks').updateMany({
-        completed: false
-    }, {
-        $set: {
-            completed: true
-        }
-    }).then((result) => {
-        console.log(result.modifiedCount)
-    }).catch((error) => {
-        console.log(error)
-    })
+    // db.collection('tasks').updateMany({
+    //     completed: false
+    // }, {
+    //     $set: {
+    //         completed: true
+    //     }
+    // }).then((result) => {
+    //     console.log(result.modifiedCount)
+    // }).catch((error) => {
+    //     console.log(error)
+    // })
 
     
     
