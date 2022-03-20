@@ -13,16 +13,40 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     if (error) {
         return console.log('Unable to connect to database!')
     }
-
     const db = client.db(databaseName)
+    // db.collection('users').updateOne({
+    //     _id: new ObjectID("6235c65e1ba9ed5e183743fb")
+    // }, {
+    //     $inc: {
+    //         age: 1
+    //     }
+    // }).then((result) => {
+    //     console.log(result)
+    // }).catch((error) => {
+    //     console.log(error)
+    // })
 
-    db.collection('users').findOne({ _id: new ObjectID("6235c65e1ba9ed5e183743fb") }, (error, task) => {
-        console.log(task)
+    db.collection('tasks').updateMany({
+        completed: false
+    }, {
+        $set: {
+            completed: true
+        }
+    }).then((result) => {
+        console.log(result.modifiedCount)
+    }).catch((error) => {
+        console.log(error)
     })
 
-    db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
-        console.log(tasks)
-    })
+    
+    
+    // db.collection('users').findOne({ _id: new ObjectID("6235c65e1ba9ed5e183743fb") }, (error, task) => {
+    //     console.log(task)
+    // })
+
+    // db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
+    //     console.log(tasks)
+    // })
     
     // db.collection('users').insertOne({
     //     name: 'Vikram',
