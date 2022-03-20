@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
+const mongoose = require('mongoose')
+const validator = require('validator')
 
 mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
     useNewUrlParser: true
@@ -23,6 +23,17 @@ const User = mongoose.model('User', {
             }
         }
     },
+    password: {
+        type: String,
+        required: true,
+        minlength: 7,
+        trim: true,
+        validate(value) {
+            if (value.toLowerCase().includes('password')) {
+                throw new Error('Password cannot contain "password"')
+            }
+        }
+    },
     age: {
         type: Number,
         default: 0,
@@ -34,36 +45,11 @@ const User = mongoose.model('User', {
     }
 })
 
-const Task = mongoose.model('Task', {
-  description: {
-      type: String
-  },
-  completed: {
-      type: Boolean
-  }
-})
-
-const me = new User({
-    name: '   Andrew  ',
-    email: 'MYEMAIL@MEAD.IO   '
-})
-
-me.save().then(() => {
-    console.log(me)
-}).catch((error) => {
-    console.log('Error!', error)
-})
-
 // const me = new User({
-//   name: 'Andrew',
-//   age: 31
+//     name: '   Andrew  ',
+//     email: 'MYEMAIL@MEAD.IO   ',
+//     password: 'phone098!'
 // })
-
-// const task = new Task({
-//   description: 'Learn the Mongoose library',
-//   completed: false
-// })
-
 
 // me.save().then(() => {
 //     console.log(me)
@@ -71,8 +57,24 @@ me.save().then(() => {
 //     console.log('Error!', error)
 // })
 
+const Task = mongoose.model('Task', {
+    description: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    completed: {
+        type: Boolean,
+        default: false
+    }
+})
+
+const task = new Task({
+    description: '  Eat lunch'
+})
+
 // task.save().then(() => {
-//   console.log(task)
+//     console.log(task)
 // }).catch((error) => {
-//   console.log(error)
+//     console.log(error)
 // })
