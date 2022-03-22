@@ -77,30 +77,42 @@ app.get("/tasks/:id", async (req, res) => {
   //     });
 });
 
-app.post("/users", (req, res) => {
+app.post("/users", async (req, res) => {
   const user = new User(req.body);
-
-  user
-    .save()
-    .then(() => {
-      res.send(user);
-    })
-    .catch((e) => {
-      res.status(400).send(e);
-    });
+  try {
+      await user.save();
+      res.status(201).send(user)
+  } catch (e) {
+    res.status(400).send();
+  }
+//   user
+//     .save()
+//     .then(() => {
+//       res.send(user);
+//     })
+//     .catch((e) => {
+//       res.status(400).send(e);
+//     });
 });
 
-app.post("/tasks", (req, res) => {
+app.post("/tasks", async (req, res) => {
   const task = new Task(req.body);
 
-  task
-    .save()
-    .then(() => {
-      res.send(task);
-    })
-    .catch((e) => {
-      res.status(400).send(e);
-    });
+  try{
+      await task.save();
+      res.status(201).send();
+  }catch(e){
+      res.status(400).send();
+  }
+
+//   task
+//     .save()
+//     .then(() => {
+//       res.send(task);
+//     })
+//     .catch((e) => {
+//       res.status(400).send(e);
+//     });
 });
 
 app.listen(port, () => {
