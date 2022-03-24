@@ -2,10 +2,6 @@ const express = require('express');
 const User = require('../models/user')
 const router = new express.Router();
 
-router.get('/test', (req, res) => {
-  res.send('From a new file')
-})
-
 router.get("/users", async (req, res) => {
   try {
     const users = await User.find({});
@@ -38,6 +34,15 @@ router.post("/users", async (req, res) => {
     res.status(400).send(e);
   }
 });
+
+router.post('/users/login', async (req, res) => {
+  try {
+      const user = await User.findByCredentials(req.body.email, req.body.password)
+      res.send(user)
+  } catch (e) {
+      res.status(400).send(e)
+  }
+})
 
 router.patch('/users/:id', async (req, res) => {
   const updates = Object.keys(req.body)
