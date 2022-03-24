@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs')
 
-const User = mongoose.model('User', {
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -38,6 +39,18 @@ const User = mongoose.model('User', {
             }
         }
     }
+});
+
+userSchema.pre('save', async function(next){
+    const user = this
+    // db에 기록된 값과 비교해서 변경된 경우 true를, 그렇지 않은 경우 false를 반환하는 함수입니다. user 생성시는 항상 true
+    if(user.isModified('password')){
+        user.password = await bcrypt.hash(user.password, 8)
+    }
+
+    next();
 })
+
+const User = mongoose.model('User', userSchema)
 
 module.exports = User
