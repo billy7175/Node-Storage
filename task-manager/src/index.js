@@ -16,9 +16,19 @@ app.listen(port, () => {
   console.log("Server is up on port " + port);
 });
 
-const bcrypt = require('bcryptjs')
+// const Task = require('./models/task')
+const User = require('./models/user')
 
-const jwt = require('jsonwebtoken');
+const main = async () => {
+  const user = await User.findById('624069aa3ee7d42c12dfc5d0')
+  await user.populate('tasks');
+  console.log('#######')
+  console.log(user.tasks)
+}
+main();
+// const bcrypt = require('bcryptjs')
+
+// const jwt = require('jsonwebtoken');
 
 // const myFunction = async () => {
 //   const token = jwt.sign({_id: 'abc123'},'thisismynewcourse', {expiresIn:'7 days'});
