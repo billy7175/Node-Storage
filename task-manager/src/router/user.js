@@ -53,7 +53,9 @@ router.post('/users/login', async (req, res) => {
 
 router.post('/users/logout', auth, async (req, res) => {
   try {
+      // 새로운 토큰과 다르면 이전 토큰 삭제
       req.user.tokens = req.user.tokens.filter((token) => {
+        console.log('@token.token !== req.token:',token.token !== req.token)
           return token.token !== req.token
       })
       await req.user.save()
