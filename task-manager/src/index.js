@@ -20,15 +20,15 @@ const bcrypt = require('bcryptjs')
 
 const jwt = require('jsonwebtoken');
 
-const myFunction = async () => {
-  const token = jwt.sign({_id: 'abc123'},'thisismynewcourse', {expiresIn:'7 days'});
-  const isVerified = jwt.verify(token, 'thisismynewcourse')
-  console.log("token")
-  console.log(token)
-  console.log("@isVerified:", isVerified)
-}
+// const myFunction = async () => {
+//   const token = jwt.sign({_id: 'abc123'},'thisismynewcourse', {expiresIn:'7 days'});
+//   const isVerified = jwt.verify(token, 'thisismynewcourse')
+//   console.log("token")
+//   console.log(token)
+//   console.log("@isVerified:", isVerified)
+// }
 
-myFunction();
+// myFunction();
 
 
 
