@@ -5,10 +5,18 @@ const router = new express.Router();
 
 
 router.get("/tasks",auth , async (req, res) => {
+  const match = {}
+
+  if(req.query.completed) {
+    match.completed = req.query.completed === 'true'
+  }
   try {
     // const tasks = await Task.find({});
     // res.send(tasks);
-    await req.user.populate('tasks');
+    await req.user.populate({
+      path:'task',
+      match
+    });
     res.send(req.user.tasks)
   } catch (e) {
     res.status(500).send();
