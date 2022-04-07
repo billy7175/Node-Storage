@@ -12,8 +12,11 @@ const publicDirectoryPath = path.join(__dirname, '../public')
 
 app.use(express.static(publicDirectoryPath))
 
+const count = 0;
+
 io.on('connection', () => {
     console.log('New WebSocket connection')
+    // socket.emit('countUpdated')
 })
 
 server.listen(port, () => {
