@@ -17,6 +17,10 @@ let count = 0;
 io.on('connection', (socket) => {
     console.log('New WebSocket connection') // Confirm Connection From Backend
     socket.emit('message','Welcome!');
+
+    socket.on('sendMessage', (message) => {
+        io.emit('message', message)
+    })
     
     // socket.emit('countUpdated', count);
 
