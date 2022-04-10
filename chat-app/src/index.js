@@ -17,6 +17,7 @@ let count = 0;
 io.on('connection', (socket) => {
     console.log('New WebSocket connection') // Confirm Connection From Backend
     socket.emit('message','Welcome!');
+    socket.broadcast.emit('message', 'A new user has joined.'); // After that a new user has left.
 
     socket.on('sendMessage', (message) => {
         io.emit('message', message)
