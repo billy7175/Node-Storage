@@ -26,13 +26,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         io.emit('message', 'A user has left!')
     })
-    
-    // socket.emit('countUpdated', count);
 
-    // socket.on('increment', () => {
-    //     count++
-    //     socket.emit('countUpdated', count)
-    // })
 })
 
 server.listen(port, () => {

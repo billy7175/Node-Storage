@@ -4,7 +4,6 @@ socket.on('message', (message) => {
   console.log(message);
 })
 
-// const messageInput = document.querySelector('input')
 document.querySelector('#message-form').addEventListener('submit', (e) => {
   
   e.preventDefault();
